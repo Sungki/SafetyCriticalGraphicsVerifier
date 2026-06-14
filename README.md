@@ -6,8 +6,8 @@ This repository serves as a testing portfolio for safety-critical graphics drive
 
 | Requirement ID | Description | Test Case | Status |
 | :--- | :--- | :--- | :--- |
-| **LLR-GRAPHICS-002** | Driver must handle hardware initialization failures gracefully. | `test_llr_002_pipeline_success` | PASS |
-| **LLR-GRAPHICS-002** | Driver must clear OpenGL VBO allocations upon initialization failure to prevent memory leaks. | `test_llr_002_resource_leak_check` | FAIL (Bug Logged) |
+| **LLR-GRAPHICS-002** | Driver must initialize and flag invalid display bounds. | `SafetyDisplayTest.VerifiesNormalInitialization` | PASS |
+| **LLR-GRAPHICS-002** | Driver must safely reject and log an empty or zero size boundary. | `SafetyDisplayTest.RejectsInvalidZeroBoundaries` | PASS |
 
 ## 📉 Structural Code Coverage (DO-178C Compliance)
 To satisfy DO-178C statement coverage requirements, this project uses **OpenCppCoverage** on Windows to measure test completeness.
