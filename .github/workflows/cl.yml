@@ -1,0 +1,45 @@
+name: Safety-Critical Verification Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verify-and-test:
+    runs-on: windows-latest  # Changed to Windows for OpenCppCoverage support
+
+    steps:
+    # 1. Pull the repository code
+    - name: Checkout Code Baseline
+      uses: actions/checkout@v4
+
+    # 2. Install OpenCppCoverage on the runner machine
+    - name: Install OpenCppCoverage
+      run: choco install opencppcoverage -y
+
+    # 3. Add OpenCppCoverage utility to the Windows path
+    - name: Add OpenCppCoverage to PATH
+      run: echo "C:\Program Files\OpenCppCoverage" >> $GITHUB_PATH
+      shell: bash
+
+    # 4. Generate Visual Studio project compilation files via CMake
+    - name: Configure CMake Build Environment
+      run: mkdir build && cd build && cmake ..
+
+    # 5. Compile the application and GoogleTest suite in Release mode
+    - name: Compile Code and Test Suite
+      run: cd build && cmake --build . --config Release
+
+    # 6. Run GoogleTest inside OpenCppCoverage to analyze code lines
+    - name: Execute Code Coverage Analysis
+      run: |
+        OpenCppCoverage.exe --export_type=html:coverage_report --modules=run_unit_tests.exe -- build/Release/run_unit_tests.exe
+
+    # 7. Upload the HTML report to GitHub so you can see your coverage percentage
+    - name: Upload Coverage Report Artifact
+      uses: actions/allowed-artifacts/upload-artifact@v4
+      with:
+        name: Code-Coverage-HTML-Report
+        path: coverage_report/
