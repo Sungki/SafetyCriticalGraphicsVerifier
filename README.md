@@ -6,8 +6,8 @@ This repository serves as a testing portfolio for safety-critical graphics drive
 
 | Requirement ID | Description | Test Case | Status |
 | :--- | :--- | :--- | :--- |
-| **LLR-GRAPHICS-002** | Driver must initialize and flag invalid display bounds. | `SafetyDisplayTest.VerifiesNormalInitialization` | PASS |
-| **LLR-GRAPHICS-002** | Driver must safely reject and log an empty or zero size boundary. | `SafetyDisplayTest.RejectsInvalidZeroBoundaries` | PASS |
+| **LLR-GRAPHICS-003** | Driver must initialize and flag invalid display bounds. | `SafetyDisplayTest.VerifiesNormalInitialization` | PASS |
+| **LLR-GRAPHICS-003** | Driver must safely reject and log an empty or zero size boundary. | `SafetyDisplayTest.RejectsInvalidZeroBoundaries` | PASS |
 
 ## 📉 Structural Code Coverage (DO-178C Compliance)
 To satisfy DO-178C statement coverage requirements, this project uses **OpenCppCoverage** on Windows to measure test completeness.
