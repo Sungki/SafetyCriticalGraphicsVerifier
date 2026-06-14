@@ -8,7 +8,7 @@ on:
 
 jobs:
   verify-and-test:
-    runs-on: windows-latest  # Changed to Windows for OpenCppCoverage support
+    runs-on: windows-latest
 
     steps:
     # 1. Pull the repository code
@@ -37,9 +37,9 @@ jobs:
       run: |
         OpenCppCoverage.exe --export_type=html:coverage_report --modules=run_unit_tests.exe -- build/Release/run_unit_tests.exe
 
-    # 7. Upload the HTML report to GitHub so you can see your coverage percentage
+    # 7. Upload the HTML report to GitHub using the correct official action
     - name: Upload Coverage Report Artifact
-      uses: actions/allowed-artifacts/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: Code-Coverage-HTML-Report
         path: coverage_report/
